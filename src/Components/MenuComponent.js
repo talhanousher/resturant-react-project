@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle, CardBody, CardText } from 'reactstrap';
+
+import DishDetail from './DishDetailComponent';
 class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {
             selectedDish: null
         }
+        console.log('Constructor');
     }
 
     onDishSelect(dish) {
@@ -28,9 +31,11 @@ class Menu extends Component {
             );
     }
 
-
+    componentDidMount() {
+        console.log('Component Did Mount');
+    }
     render() {
-        console.log(this.props);
+        console.log('Render');
         const menu = this.props.dishes.map((dish, index) => {
             return (
                 <div key={index} className="col-12 col-md-5 m-1">
@@ -49,11 +54,11 @@ class Menu extends Component {
                 <div className="row">
                     {menu}
                 </div>
-                <div className='row'>
-                    {/* <div className="col-12 col-md-5 m-1"> */}
+
+                <DishDetail selectedDish={this.state.selectedDish}></DishDetail>
+                {/* <div className="col-12 col-md-5 m-1">
                         {this.renderDish(this.state.selectedDish)}
-                    {/* </div> */}
-                </div>
+                    </div> */}
             </div>
         );
     }

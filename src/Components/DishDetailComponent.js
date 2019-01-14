@@ -9,10 +9,10 @@ class DishDetail extends Component {
         }
     }
     render() {
-        console.log('Dish Detail : ', this.props.selectedDish)
+        console.log('Dish Detail : ', this.props.dish)
         let comments;
-        if (this.props.selectedDish) {
-            comments = this.props.selectedDish.comments.map((comment, index) => {
+        if (this.props.dish) {
+            comments = this.props.dish.comments.map((comment, index) => {
                 return (
                     <div key={index}>
                         <p>{comment.comment}</p>
@@ -22,15 +22,15 @@ class DishDetail extends Component {
             })
         }
 
-        if (this.props.selectedDish != null) {
+        if (this.props.dish != null) {
             return (
                 <div className='row'>
                     <div className="col-12 col-md-5 m-1">
                         <Card>
-                            <CardImg top src={this.props.selectedDish.image} alt={this.props.selectedDish.name} />
+                            <CardImg top src={this.props.dish.image} alt={this.props.dish.name} />
                             <CardBody>
-                                <CardTitle>{this.props.selectedDish.name}</CardTitle>
-                                <CardText>{this.props.selectedDish.description}</CardText>
+                                <CardTitle>{this.props.dish.name}</CardTitle>
+                                <CardText>{this.props.dish.description}</CardText>
                             </CardBody>
                         </Card>
                     </div>

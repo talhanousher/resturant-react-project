@@ -5,6 +5,7 @@ import DishDetail from './DishDetailComponent';
 
 import { DISHES } from '../Shared/dishes';
 import Header from './HeaderComponent';
+import Footer from './FooterComponent';
 
 class Main extends Component {
     constructor(props) {
@@ -25,6 +26,7 @@ class Main extends Component {
                 <div className='container'>
                     <DishDetail dish={this.state.dishes.filter(dish => dish.id === this.state.selectedDish)[0]} />
                 </div>
+                <Footer></Footer>
             </div>
         );
     }

@@ -17,9 +17,8 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
-        // event.preventDefault();
+        console.log('Values : ', values);
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
@@ -32,9 +31,10 @@ class CommentForm extends Component {
                             <Label htmlFor="ratings">Rating</Label>
                             <Row>
                                 <Col>
-                                    <Control.select model=".ratings" id="ratings" name="ratings"
+                                    <Control.select model=".rating" id="ratings" name="ratings"
                                         placeholder="Rating"
                                         className="form-control"
+                                        defaultValue="1"
                                     >
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -47,7 +47,7 @@ class CommentForm extends Component {
                             <Label htmlFor="name">Your Name</Label>
                             <Row>
                                 <Col>
-                                    <Control.text model=".authorname" id="authorname" name="authorname"
+                                    <Control.text model=".author" id="authorname" name="authorname"
                                         placeholder="Your Name"
                                         className="form-control"
                                         validators={{
@@ -56,7 +56,7 @@ class CommentForm extends Component {
                                     />
                                     <Errors
                                         className="text-danger"
-                                        model=".authorname"
+                                        model=".author"
                                         show="touched"
                                         messages={{
                                             required: 'Required',
@@ -70,7 +70,7 @@ class CommentForm extends Component {
                             <Label htmlFor="feedback">Your Feedback</Label>
                             <Row>
                                 <Col>
-                                    <Control.textarea model=".feedback" id="feedback" name="feedback"
+                                    <Control.textarea model=".comment" id="feedback" name="feedback"
                                         rows="6"
                                         className="form-control" />
                                 </Col>
@@ -149,12 +149,13 @@ class DishDetail extends Component {
                         <RenderDish dish={this.props.dish} />
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        <RenderComments comments={this.props.comments} />
+                        <RenderComments comments={this.props.comments} addComment={this.props.addComment}
+                            dishId={this.props.dish.id} />
                         <Button outline onClick={this.toggleModal}><span className="fa fa-edit fa-lg"></span> Submit Comment</Button>
                     </div>
                 </div>
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                    <CommentForm></CommentForm>
+                    <CommentForm dishId={this.props.dish.id} addComment={this.props.addComment} ></CommentForm>
                 </Modal>
             </div>
 

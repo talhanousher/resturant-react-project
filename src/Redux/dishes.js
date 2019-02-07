@@ -1,10 +1,6 @@
 import { DISHES } from '../Shared/dishes';
 
-export const initialState = {
-    dishes: DISHES
-};
-
-export const Dishes = function (state = initialState, action) {
+export const Dishes = function (state = DISHES, action) {
     switch (action.type) {
         default:
             return state

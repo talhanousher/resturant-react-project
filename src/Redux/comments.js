@@ -2,9 +2,6 @@ import { COMMENTS } from '../Shared/comments';
 import * as ActionTypes from './types';
 
 export const Comments = function (state = COMMENTS, action) {
-    // console.log(state);
-    console.log(action);
-    console.log(state);
     switch (action.type) {
         case ActionTypes.ADD_COMMENT:
             let comment = action.payload;
@@ -14,5 +11,5 @@ export const Comments = function (state = COMMENTS, action) {
             return state.concat(comment);
         default:
             return state
-    };
+    }
 };

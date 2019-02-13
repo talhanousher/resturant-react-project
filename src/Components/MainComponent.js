@@ -10,7 +10,7 @@ import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import DishDetail from './DishDetailComponent.js';
 import About from './AboutUsComponent';
-import { addComment } from '../Redux/ActionCreators';
+import { addComment, fetchDishes } from '../Redux/ActionCreators';
 
 class Main extends Component {
     constructor(props) {
@@ -20,10 +20,11 @@ class Main extends Component {
     }
     render() {
         const HomePage = () => {
-            console.log(this.props.dishes.dishes);
             return (
                 <Home
-                    dish={this.props.dishes.filter((dish) => dish.featured)[0]}
+                    dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
+                    dishesLoading={this.props.dishes.isLoading}
+                    dishesErr={this.props.dishes.err}
                     promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
                     leader={this.props.leaders.filter((leader) => leader.featured)[0]}
                 />
@@ -34,7 +35,9 @@ class Main extends Component {
             console.log(this.props);
 
             return (<DishDetail
-                dish={this.props.dishes.filter((dish) => dish.id === parseInt(props.match.params.dishId, 10))[0]}
+                dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(props.match.params.dishId, 10))[0]}
+                isLoading={this.props.dishes.isLoading}
+                err={this.props.dishes.err}
                 comments={this.props.comments.filter((comment) => comment.dishId === parseInt(props.match.params.dishId, 10))}
                 addComment={this.props.addComment}
             ></DishDetail>)
@@ -55,10 +58,16 @@ class Main extends Component {
             </div>
         );
     }
+
+    componentDidMount() {
+        this.props.fetchDishes();
+    }
 }
 
+
 const mapDispatchToProps = dispatch => ({
-    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+    fetchDishes: () => { dispatch(fetchDishes()) }
 });
 
 const mapStateToProps = (state) => {

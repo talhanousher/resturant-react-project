@@ -10,11 +10,12 @@ import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import DishDetail from './DishDetailComponent.js';
 import About from './AboutUsComponent';
-import { addComment, fetchDishes } from '../Redux/ActionCreators';
+import { addComment, fetchDishes, fetchComments, fetchPromos } from '../Redux/ActionCreators';
 
 class Main extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
         }
     }
@@ -25,7 +26,9 @@ class Main extends Component {
                     dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
                     dishesLoading={this.props.dishes.isLoading}
                     dishesErr={this.props.dishes.err}
-                    promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
+                    promotion={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
+                    promosLoading={this.props.promotions.isLoading}
+                    promosErr={this.props.promotions.errMess}
                     leader={this.props.leaders.filter((leader) => leader.featured)[0]}
                 />
             );
@@ -33,12 +36,12 @@ class Main extends Component {
 
         const DishWithId = (props) => {
             console.log(this.props);
-
             return (<DishDetail
                 dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(props.match.params.dishId, 10))[0]}
                 isLoading={this.props.dishes.isLoading}
                 err={this.props.dishes.err}
-                comments={this.props.comments.filter((comment) => comment.dishId === parseInt(props.match.params.dishId, 10))}
+                comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(props.match.params.dishId, 10))}
+                commentsErrMess={this.props.comments.errMess}
                 addComment={this.props.addComment}
             ></DishDetail>)
         }
@@ -60,16 +63,24 @@ class Main extends Component {
     }
 
     componentDidMount() {
+        console.log('Component Did Mount')
         this.props.fetchDishes();
+        this.props.fetchComments();
+        this.props.fetchPromos();
     }
 }
 
 
-const mapDispatchToProps = dispatch => ({
-    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-    fetchDishes: () => { dispatch(fetchDishes()) },
-    resetFeedbackForm: () => { dispatch(actions.reset('feedback')) }
-});
+const mapDispatchToProps = dispatch => {
+    console.log('Maps Dispatch To Props')
+    return ({
+        addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+        fetchDishes: () => { dispatch(fetchDishes()) },
+        resetFeedbackForm: () => { dispatch(actions.reset('feedback')) },
+        fetchComments: () => { dispatch(fetchComments()) },
+        fetchPromos: () => { dispatch(fetchPromos()) }
+    })
+};
 
 const mapStateToProps = (state) => {
     return {

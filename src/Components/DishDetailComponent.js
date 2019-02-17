@@ -20,7 +20,7 @@ class CommentForm extends Component {
 
     handleSubmit(values) {
         console.log('Values : ', values);
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
@@ -152,13 +152,13 @@ class DishDetail extends Component {
                             <RenderDish dish={this.props.dish} />
                         </div>
                         <div className="col-12 col-md-5 m-1">
-                            <RenderComments comments={this.props.comments} addComment={this.props.addComment}
+                            <RenderComments comments={this.props.comments} postComment={this.props.postComment}
                                 dishId={this.props.dish.id} />
                             <Button outline onClick={this.toggleModal}><span className="fa fa-edit fa-lg"></span> Submit Comment</Button>
                         </div>
                     </div>
                     <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                        <CommentForm dishId={this.props.dish.id} addComment={this.props.addComment} ></CommentForm>
+                        <CommentForm dishId={this.props.dish.id} postComment={this.props.postComment} ></CommentForm>
                     </Modal>
                 </div>
             );

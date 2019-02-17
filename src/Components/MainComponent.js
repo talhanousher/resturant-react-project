@@ -10,7 +10,7 @@ import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import DishDetail from './DishDetailComponent.js';
 import About from './AboutUsComponent';
-import { addComment, fetchDishes, fetchComments, fetchPromos } from '../Redux/ActionCreators';
+import { postComment, fetchDishes, fetchComments, fetchPromos } from '../Redux/ActionCreators';
 
 class Main extends Component {
     constructor(props) {
@@ -42,7 +42,7 @@ class Main extends Component {
                 errMess={this.props.dishes.errMess}
                 comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(props.match.params.dishId, 10))}
                 commentsErrMess={this.props.comments.errMess}
-                addComment={this.props.addComment}
+                postComment={this.props.postComment}
             ></DishDetail>)
         }
 
@@ -74,7 +74,7 @@ class Main extends Component {
 const mapDispatchToProps = dispatch => {
     console.log('Maps Dispatch To Props')
     return ({
-        addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+        postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
         fetchDishes: () => { dispatch(fetchDishes()) },
         resetFeedbackForm: () => { dispatch(actions.reset('feedback')) },
         fetchComments: () => { dispatch(fetchComments()) },

@@ -172,11 +172,11 @@ class DishDetail extends Component {
                     </div>
                 );
             } else {
-                if (this.props.err) {
+                if (this.props.errMess) {
                     return (
                         <div className="container">
                             <div className="row">
-                                <h4>{this.props.err}</h4>
+                                <h4>{this.props.errMess}</h4>
                             </div>
                         </div>
                     );

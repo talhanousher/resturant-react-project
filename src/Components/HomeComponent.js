@@ -1,4 +1,5 @@
 import React from 'react';
+import { FadeTransform } from 'react-animation-components';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../Shared/baseURL';
@@ -17,14 +18,20 @@ function RenderCard(props) {
         } else {
             // console.log(baseUrl + item.image);
             return (
-                <Card>
-                    <CardImg src={baseUrl + props.item.image} alt={props.item.name} />
-                    <CardBody>
-                        <CardTitle>{props.item.name}</CardTitle>
-                        {props.item.designation ? <CardSubtitle>{props.item.designation}</CardSubtitle> : null}
-                        <CardText>{props.item.description}</CardText>
-                    </CardBody>
-                </Card>
+                <FadeTransform
+                    in
+                    transformProps={{
+                        exitTransform: 'scale(0.5) translateY(-50%)'
+                    }}>
+                    <Card>
+                        <CardImg src={baseUrl + props.item.image} alt={props.item.name} />
+                        <CardBody>
+                            <CardTitle>{props.item.name}</CardTitle>
+                            {props.item.designation ? <CardSubtitle>{props.item.designation}</CardSubtitle> : null}
+                            <CardText>{props.item.description}</CardText>
+                        </CardBody>
+                    </Card>
+                </FadeTransform>
             );
         }
     }

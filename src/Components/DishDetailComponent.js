@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../Shared/baseURL';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 // import CommentForm from './CommentFormComponent';
 
 
@@ -92,30 +93,40 @@ class CommentForm extends Component {
 
 const RenderDish = (props) => {
     return (
-        <Card>
-            <CardImg top src={baseUrl + props.dish.image} alt={props.dish.name} />
-            <CardBody>
-                <CardTitle>{props.dish.name}</CardTitle>
-                <CardText>{props.dish.description}</CardText>
-            </CardBody>
-        </Card>
+        <FadeTransform
+            in
+            transformProps={{
+                exitTransform: 'scale(0.5) translateY(-50%)'
+            }}>
+            <Card>
+                <CardImg top src={baseUrl + props.dish.image} alt={props.dish.name} />
+                <CardBody>
+                    <CardTitle>{props.dish.name}</CardTitle>
+                    <CardText>{props.dish.description}</CardText>
+                </CardBody>
+            </Card>
+        </FadeTransform>
     );
 }
 
 const RenderComments = (props) => {
     console.log(props.comments);
-    return props.comments.map((comment, index) => {
-        return (
-            <div key={index}>
-                <ul className='list-unstyled'>
-                    <div>
-                        <p>{comment.comment}</p>
-                        <p>--{comment.author} <Moment format='YYYY/MM/DD'>{comment.date}</Moment></p>
-                    </div>
-                </ul>
-            </div>
-        );
-    });
+    if (props.comments) {
+        return (<Stagger in>
+            {props.comments.map((comment) => {
+                return (
+                    <Fade in>
+                        <div key={comment.id}>
+                            <p>{comment.comment}</p>
+                            <p>-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</p>
+                        </div>
+                    </Fade>
+                );
+            })}
+        </Stagger>)
+    } else {
+        return <div></div>
+    }
 }
 
 class DishDetail extends Component {

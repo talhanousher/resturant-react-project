@@ -11,7 +11,7 @@ import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import DishDetail from './DishDetailComponent.js';
 import About from './AboutUsComponent';
-import { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../Redux/ActionCreators';
+import { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders, postFeedback } from '../Redux/ActionCreators';
 
 class Main extends Component {
     constructor(props) {
@@ -56,7 +56,7 @@ class Main extends Component {
                             <Route path='/home' component={HomePage} />
                             <Route exact path='/menu' component={() => <Menu dishes={this.props.dishes} />} />
                             <Route path='/menu/:dishId' component={DishWithId} />
-                            <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
+                            <Route exact path='/contactus' component={() => <Contact postFeedback={this.props.postFeedback} resetFeedbackForm={this.props.resetFeedbackForm} />} />
                             <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders} />} />
                             <Redirect to='/home' />
                         </Switch>
@@ -83,7 +83,8 @@ const mapDispatchToProps = dispatch => {
         resetFeedbackForm: () => { dispatch(actions.reset('feedback')) },
         fetchComments: () => { dispatch(fetchComments()) },
         fetchPromos: () => { dispatch(fetchPromos()) },
-        fetchLeaders: () => { dispatch(fetchLeaders()) }
+        fetchLeaders: () => { dispatch(fetchLeaders()) },
+        postFeedback: (firstname, lastname, telnum, email, agree, contactType, message) => dispatch(postFeedback(firstname, lastname, telnum, email, agree, contactType, message))
     })
 };
 

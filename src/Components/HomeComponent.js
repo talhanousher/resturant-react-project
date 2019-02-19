@@ -5,7 +5,6 @@ import { Loading } from './LoadingComponent';
 import { baseUrl } from '../Shared/baseURL';
 
 function RenderCard(props) {
-    console.log('Error : ', props);
     if (props.isLoading) {
         return (
             <Loading />
@@ -16,7 +15,6 @@ function RenderCard(props) {
                 <h4>{props.errMess}</h4>
             );
         } else {
-            // console.log(baseUrl + item.image);
             return (
                 <FadeTransform
                     in
@@ -48,7 +46,7 @@ function Home(props) {
                     <RenderCard item={props.promotion} isLoading={props.promosLoading} errMess={props.promosErr} />
                 </div>
                 <div className="col-12 col-md m-1">
-                    <RenderCard item={props.leader} />
+                    <RenderCard item={props.leader} isLoading={props.leadersLoading} errMess={props.leadersErr} />
                 </div>
             </div>
         </div>

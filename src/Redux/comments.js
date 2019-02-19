@@ -1,8 +1,6 @@
 import * as ActionTypes from './types';
 
 export const Comments = function (state = { errMess: null, comments: [] }, action) {
-    console.log(action.type);
-    console.log(action.payload);
     switch (action.type) {
         case ActionTypes.ADD_COMMENT:
             let comment = action.payload;

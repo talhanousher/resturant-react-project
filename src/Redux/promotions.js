@@ -9,5 +9,5 @@ export const Promotions = function (state = { isLoading: true, errMess: null, pr
             return { ...state, isLoading: false, errMess: action.payload };
         default:
             return state
-    };
+    }
 };

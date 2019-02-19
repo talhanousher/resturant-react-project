@@ -11,12 +11,11 @@ import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import DishDetail from './DishDetailComponent.js';
 import About from './AboutUsComponent';
-import { postComment, fetchDishes, fetchComments, fetchPromos } from '../Redux/ActionCreators';
+import { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../Redux/ActionCreators';
 
 class Main extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
         }
     }
@@ -30,13 +29,14 @@ class Main extends Component {
                     promotion={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
                     promosLoading={this.props.promotions.isLoading}
                     promosErr={this.props.promotions.errMess}
-                    leader={this.props.leaders.filter((leader) => leader.featured)[0]}
+                    leader={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
+                    leadersLoading={this.props.leaders.isLoading}
+                    leadersErr={this.props.leaders.errMess}
                 />
             );
         }
 
         const DishWithId = (props) => {
-            console.log(this.props);
             return (<DishDetail
                 dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(props.match.params.dishId, 10))[0]}
                 isLoading={this.props.dishes.isLoading}
@@ -68,22 +68,22 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        console.log('Component Did Mount')
         this.props.fetchDishes();
         this.props.fetchComments();
         this.props.fetchPromos();
+        this.props.fetchLeaders();
     }
 }
 
 
 const mapDispatchToProps = dispatch => {
-    console.log('Maps Dispatch To Props')
     return ({
         postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
         fetchDishes: () => { dispatch(fetchDishes()) },
         resetFeedbackForm: () => { dispatch(actions.reset('feedback')) },
         fetchComments: () => { dispatch(fetchComments()) },
-        fetchPromos: () => { dispatch(fetchPromos()) }
+        fetchPromos: () => { dispatch(fetchPromos()) },
+        fetchLeaders: () => { dispatch(fetchLeaders()) }
     })
 };
 

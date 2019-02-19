@@ -5,7 +5,6 @@ import { Loading } from './LoadingComponent';
 import { baseUrl } from '../Shared/baseURL';
 
 const RenderMenuItems = (props) => {
-    console.log(props);
     return (
         <Card>
             <Link to={`/menu/${props.dish.id}`}>
@@ -19,7 +18,6 @@ const RenderMenuItems = (props) => {
 }
 
 const Menu = (props) => {
-    console.log(props);
     const menu = props.dishes.dishes.map((dish, index) => {
         return (
             <div key={index} className="col-12 col-md-5 m-1">
@@ -27,7 +25,6 @@ const Menu = (props) => {
             </div>
         );
     });
-    console.log(menu);
     if (props.dishes.isLoading) {
         return (
             <div className="container">

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Moment from 'react-moment';
 import { Card, CardImg, CardBody, CardTitle, CardText, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Label, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
@@ -20,7 +19,6 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        console.log('Values : ', values);
         this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
@@ -110,7 +108,6 @@ const RenderDish = (props) => {
 }
 
 const RenderComments = (props) => {
-    console.log(props.comments);
     if (props.comments) {
         return (<Stagger in>
             {props.comments.map((comment) => {
